@@ -63,10 +63,14 @@ public class FrameHome extends JFrame {
 
 	public void loadMessages(ArrayList<String> messages) {
 		panelMessage.loadMessages(messages);
+		fieldMessage.setText("");
 		revalidate();
 	}
 
 	public void panelNotifies(ArrayList<Notify> messages) {
+		if (panelNotifies != null) {
+			this.remove(panelNotifies);
+		}
 		panelNotifies = new PanelNotify(listener);
 		panelNotifies.loadMessages(messages);
 		add(panelNotifies, BorderLayout.EAST);

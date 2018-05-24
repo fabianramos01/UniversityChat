@@ -19,7 +19,7 @@ public class Server extends MyThread implements IObserver{
 		super(SERVER, SLEEP);
 		serverSocket = new ServerSocket(port);
 		connections = new ArrayList<>();
-		System.out.println("Server create at port 2000");
+		System.out.println("Server create at port " + port);
 		start();
 	}
 
