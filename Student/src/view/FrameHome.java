@@ -19,33 +19,35 @@ import model.Notify;
 public class FrameHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private ActionListener listener;
 	private JTextField fieldMessage;
 	private PanelMessage panelMessage;
 	private PanelNotify panelNotifies;
 	private ButtonNotify buttonNotify;
 
 	public FrameHome(ActionListener listener) {
+		this.listener = listener;
 		setTitle(ConstantList.APP_NAME);
 		setLayout(new BorderLayout());
 		setIconImage(new ImageIcon(getClass().getResource(ConstantList.APP_ICON)).getImage());
 		setSize(ConstantList.WIDTH_FRAME, ConstantList.HEIGHT_FRAME);
-		init(listener);
+		init();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
 	}
 
-	private void init(ActionListener listener) {
+	private void init() {
 		setJMenuBar(new MenuBarUser(listener));
-		loadPanelMessage(listener);
+		loadPanelMessage();
 		panelMessage = new PanelMessage();
 		add(panelMessage, BorderLayout.CENTER);
 		buttonNotify = new ButtonNotify(listener);
 		add(buttonNotify, BorderLayout.SOUTH);
 	}
 
-	private void loadPanelMessage(ActionListener listener) {
+	private void loadPanelMessage() {
 		JPanel panelMessage = new JPanel(new GridLayout(1, 2));
 		fieldMessage = new JTextField();
 		fieldMessage.setFont(ConstantList.AGENCY_FB);
@@ -66,10 +68,15 @@ public class FrameHome extends JFrame {
 	}
 
 	public void panelNotifies(ArrayList<Notify> messages) {
-		panelNotifies = new PanelNotify();
+		panelNotifies = new PanelNotify(listener);
 		panelNotifies.loadMessages(messages);
 		add(panelNotifies, BorderLayout.EAST);
 		SwingUtilities.updateComponentTreeUI(this);
+	}
+	
+	public void removePanelNotify() {
+		remove(panelNotifies);
+		SwingUtilities.updateComponentTreeUI(this);		
 	}
 
 	public String getMessage() {

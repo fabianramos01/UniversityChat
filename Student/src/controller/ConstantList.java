@@ -17,4 +17,6 @@ public class ConstantList {
 	public static final int SLEEP = 1000;
 	public static final int TIMER_TIME = 5000;
 	public static final int SIZE_CIRCLE = 50;
+	public static final Object CONNECTION_ERROR = "No se pudo conectar con el servidor";
+	public static final String ERROR = "ERROR";
 }

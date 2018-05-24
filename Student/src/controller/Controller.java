@@ -24,7 +24,7 @@ public class Controller implements ActionListener {
 
 	private void startTimer() {
 		timer = new Timer(ConstantList.TIMER_TIME, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frameHome.setNotifyNum(student.notifications());
@@ -32,10 +32,15 @@ public class Controller implements ActionListener {
 		});
 		timer.start();
 	}
-	
+
 	private void connect() {
 		String ip = JOptionPane.showInputDialog("Ingrese la IP del servidor");
-		student = new Student(ip);
+		try {
+			student = new Student(ip);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, ConstantList.CONNECTION_ERROR, ConstantList.ERROR,
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void sendMessage() {
@@ -49,7 +54,7 @@ public class Controller implements ActionListener {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	private void showNotify() {
 		frameHome.setNotifyNum(0);
 		student.changeNotifyState();
@@ -67,6 +72,9 @@ public class Controller implements ActionListener {
 			break;
 		case COMMAND_SHOW_NOTIFY:
 			showNotify();
+			break;
+		case COMMAND_CLOSE_NOTIFY:
+			frameHome.removePanelNotify();
 			break;
 		}
 	}

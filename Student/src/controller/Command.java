@@ -6,6 +6,7 @@ public enum Command {
 
 	COMMAND_MESSAGE("COMMAND_MESSAGE", "Enviar mensaje" , ""),
 	COMMAND_SHOW_NOTIFY("COMMAND_SHOW_NOTIFY", "Notificaciones" , ""),
+	COMMAND_CLOSE_NOTIFY("COMMAND_CLOSE_NOTIFY", "Cerrar" , "/data/close.png"),
 	CHANGE_IP("CHANGE_IP", "Cambiar la IP" , "");
 	
 	private String command;

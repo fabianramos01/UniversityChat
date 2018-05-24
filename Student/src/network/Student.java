@@ -18,27 +18,23 @@ public class Student extends MyThread {
 	private ArrayList<Notify> notifications;
 	private ArrayList<String> messages;
 
-	public Student(String ip) {
+	public Student(String ip) throws IOException {
 		super("", ConstantList.SLEEP);
 		notifications = new ArrayList<>();
 		messages = new ArrayList<>();
-		try {
-			System.out.println("Conexion iniciada");
-			socket = new Socket(ip, 2000);
-			output = new DataOutputStream(socket.getOutputStream());
-			input = new DataInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
+		System.out.println("Conexion iniciada");
+		socket = new Socket(ip, 2000);
+		output = new DataOutputStream(socket.getOutputStream());
+		input = new DataInputStream(socket.getInputStream());
 		start();
 	}
-	
+
 	public void sendMessage(String message) throws IOException {
 		messages.add(message);
 		output.writeUTF(Request.SEND_MESSAGE.toString());
 		output.writeUTF(message);
 	}
-	
+
 	private void responseManager(String response) throws IOException {
 		switch (Request.valueOf(response)) {
 		case SEND_MESSAGE:
@@ -47,7 +43,7 @@ public class Student extends MyThread {
 			break;
 		}
 	}
-	
+
 	public void changeNotifyState() {
 		for (Notify notify : notifications) {
 			if (!notify.isState()) {
@@ -55,7 +51,7 @@ public class Student extends MyThread {
 			}
 		}
 	}
-	
+
 	public int notifications() {
 		int n = 0;
 		for (Notify notify : notifications) {
@@ -78,11 +74,11 @@ public class Student extends MyThread {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public ArrayList<String> getMessages() {
 		return messages;
 	}
-	
+
 	public ArrayList<Notify> getNotifications() {
 		return notifications;
 	}

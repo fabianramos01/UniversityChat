@@ -2,14 +2,15 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controller.Command;
 import controller.ConstantList;
 import model.Notify;
 
@@ -19,12 +20,24 @@ public class PanelNotify extends JPanel {
 	private JList<String> wordList;
 	private DefaultListModel<String> listModel;
 
-	public PanelNotify() {
+	public PanelNotify(ActionListener listener) {
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		addButtonClose(listener);
 		wordList = new JList<>();
-		wordList.setBackground(Color.GRAY);
+		wordList.setFont(ConstantList.AGENCY_FB);
+		wordList.setBackground(Color.BLACK);
+		wordList.setForeground(ConstantList.APP_COLOR);
 		add(new JScrollPane(wordList), BorderLayout.CENTER);
+	}
+
+	private void addButtonClose(ActionListener listener) {
+		JPanel panelButton = new JPanel(new BorderLayout());
+		panelButton.setBackground(Color.GRAY);
+		panelButton.add(
+				UtilityList.createJButton(Command.COMMAND_CLOSE_NOTIFY.getCommand(),
+						Command.COMMAND_CLOSE_NOTIFY.getTitle(), Command.COMMAND_CLOSE_NOTIFY.getImg(), listener),
+				BorderLayout.EAST);
+		add(panelButton, BorderLayout.NORTH);
 	}
 
 	public void loadMessages(ArrayList<Notify> messages) {
@@ -32,7 +45,6 @@ public class PanelNotify extends JPanel {
 		for (Notify notify : messages) {
 			listModel.addElement(notify.getMessage());
 		}
-		wordList.setFont(ConstantList.AGENCY_FB);
 		wordList.setModel(listModel);
 		revalidate();
 	}
