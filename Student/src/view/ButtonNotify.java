@@ -31,9 +31,9 @@ public class ButtonNotify extends JButton {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(Color.RED);
+		g.setColor(ConstantList.APP_COLOR);
 		g.fillOval(60, 0, ConstantList.SIZE_CIRCLE, ConstantList.SIZE_CIRCLE);
 		g.setColor(Color.BLACK);
-		g.drawString(String.valueOf(notifyNum), 77, 35);
+		g.drawString(String.valueOf(notifyNum), 77, 38);
 	}
 }

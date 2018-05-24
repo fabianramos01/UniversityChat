@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 import controller.ConstantList;
 import model.MyThread;
+import model.Notify;
 
 public class Student extends MyThread {
 
 	private Socket socket;
 	private DataOutputStream output;
 	private DataInputStream input;
-	private ArrayList<String> notifications;
+	private ArrayList<Notify> notifications;
 	private ArrayList<String> messages;
 
 	public Student(String ip) {
@@ -42,9 +43,27 @@ public class Student extends MyThread {
 		switch (Request.valueOf(response)) {
 		case SEND_MESSAGE:
 			System.out.println("..");
-			notifications.add(input.readUTF());
+			notifications.add(new Notify(input.readUTF()));
 			break;
 		}
+	}
+	
+	public void changeNotifyState() {
+		for (Notify notify : notifications) {
+			if (!notify.isState()) {
+				notify.setState();
+			}
+		}
+	}
+	
+	public int notifications() {
+		int n = 0;
+		for (Notify notify : notifications) {
+			if (!notify.isState()) {
+				n++;
+			}
+		}
+		return n;
 	}
 
 	@Override
@@ -64,7 +83,7 @@ public class Student extends MyThread {
 		return messages;
 	}
 	
-	public ArrayList<String> getNotifications() {
+	public ArrayList<Notify> getNotifications() {
 		return notifications;
 	}
 }

@@ -10,15 +10,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import controller.Command;
 import controller.ConstantList;
+import model.Notify;
 
 public class FrameHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField fieldMessage;
 	private PanelMessage panelMessage;
+	private PanelNotify panelNotifies;
 	private ButtonNotify buttonNotify;
 
 	public FrameHome(ActionListener listener) {
@@ -47,18 +50,26 @@ public class FrameHome extends JFrame {
 		fieldMessage = new JTextField();
 		fieldMessage.setFont(ConstantList.AGENCY_FB);
 		panelMessage.add(fieldMessage);
-		panelMessage.add(UtilityList.createJButtonText(Command.COMMAND_MESSAGE.getCommand(),
-				Command.COMMAND_MESSAGE.getTitle(), Color.BLACK, Color.WHITE, ConstantList.AGENCY_FB, listener));
+		panelMessage.add(
+				UtilityList.createJButtonText(Command.COMMAND_MESSAGE.getCommand(), Command.COMMAND_MESSAGE.getTitle(),
+						Color.BLACK, ConstantList.APP_COLOR, ConstantList.AGENCY_FB, listener));
 		add(panelMessage, BorderLayout.NORTH);
 	}
-	
+
 	public void setNotifyNum(int num) {
 		buttonNotify.setNotifyNum(num);
 	}
-	
+
 	public void loadMessages(ArrayList<String> messages) {
 		panelMessage.loadMessages(messages);
 		revalidate();
+	}
+
+	public void panelNotifies(ArrayList<Notify> messages) {
+		panelNotifies = new PanelNotify();
+		panelNotifies.loadMessages(messages);
+		add(panelNotifies, BorderLayout.EAST);
+		SwingUtilities.updateComponentTreeUI(this);
 	}
 
 	public String getMessage() {

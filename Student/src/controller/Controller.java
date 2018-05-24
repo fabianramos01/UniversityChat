@@ -27,7 +27,7 @@ public class Controller implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frameHome.setNotifyNum(student.getNotifications().size());
+				frameHome.setNotifyNum(student.notifications());
 			}
 		});
 		timer.start();
@@ -49,6 +49,12 @@ public class Controller implements ActionListener {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	private void showNotify() {
+		frameHome.setNotifyNum(0);
+		student.changeNotifyState();
+		frameHome.panelNotifies(student.getNotifications());
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -60,6 +66,7 @@ public class Controller implements ActionListener {
 			sendMessage();
 			break;
 		case COMMAND_SHOW_NOTIFY:
+			showNotify();
 			break;
 		}
 	}
