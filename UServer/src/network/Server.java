@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import model.MyThread;
 
-public class Server extends MyThread {
+public class Server extends MyThread implements IObserver{
 
 	private static final String SERVER = "Servidor";
 	private static final int SLEEP = 1000;
@@ -18,6 +18,7 @@ public class Server extends MyThread {
 	public Server() throws IOException {
 		super(SERVER, SLEEP);
 		serverSocket = new ServerSocket(2000);
+		connections = new ArrayList<>();
 		System.out.println("Server create at port 2000");
 		start();
 	}
@@ -27,9 +28,20 @@ public class Server extends MyThread {
 		try {
 			socket = serverSocket.accept();
 			System.out.println("New connection!");
-			connections.add(new Connection(socket));
+			Connection connection = new Connection(socket);
+			connection.addObserver(this);
+			connections.add(connection);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void update(String name, String message) {
+		for (Connection connection : connections) {
+			if (!connection.getText().equals(name)) {
+				connection.sendMessage(message);
+			}
 		}
 	}
 }

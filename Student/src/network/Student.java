@@ -29,6 +29,7 @@ public class Student extends MyThread {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+		start();
 	}
 	
 	public void sendMessage(String message) throws IOException {
@@ -40,6 +41,7 @@ public class Student extends MyThread {
 	private void responseManager(String response) throws IOException {
 		switch (Request.valueOf(response)) {
 		case SEND_MESSAGE:
+			System.out.println("..");
 			notifications.add(input.readUTF());
 			break;
 		}

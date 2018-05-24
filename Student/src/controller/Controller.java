@@ -27,7 +27,7 @@ public class Controller implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				frameHome.setNotifyNum(student.getNotifications().size());
 			}
 		});
 		timer.start();
