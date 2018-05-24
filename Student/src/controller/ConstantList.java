@@ -14,4 +14,5 @@ public class ConstantList {
 	public static final String CONNECTION_MENU = "Conexión";
 	public static final int SLEEP = 1000;
 	public static final int TIMER_TIME = 5000;
+	public static final int SIZE_CIRCLE = 44;
 }

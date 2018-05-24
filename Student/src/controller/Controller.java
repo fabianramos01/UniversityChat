@@ -59,6 +59,8 @@ public class Controller implements ActionListener {
 		case COMMAND_MESSAGE:
 			sendMessage();
 			break;
+		case COMMAND_SHOW_NOTIFY:
+			break;
 		}
 	}
 }

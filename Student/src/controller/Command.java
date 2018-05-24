@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 public enum Command {
 
 	COMMAND_MESSAGE("COMMAND_MESSAGE", "Enviar mensaje" , ""),
+	COMMAND_SHOW_NOTIFY("COMMAND_SHOW_NOTIFY", "Notificaciones" , ""),
 	CHANGE_IP("CHANGE_IP", "Cambiar la IP" , "");
 	
 	private String command;

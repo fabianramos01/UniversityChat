@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import controller.Command;
 import controller.ConstantList;
@@ -17,8 +17,9 @@ import controller.ConstantList;
 public class FrameHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JLabel labelMessage;
+	private JTextField fieldMessage;
 	private PanelMessage panelMessage;
+	private ButtonNotify buttonNotify;
 
 	public FrameHome(ActionListener listener) {
 		setTitle(ConstantList.APP_NAME);
@@ -37,16 +38,22 @@ public class FrameHome extends JFrame {
 		loadPanelMessage(listener);
 		panelMessage = new PanelMessage();
 		add(panelMessage, BorderLayout.CENTER);
+		buttonNotify = new ButtonNotify(listener);
+		add(buttonNotify, BorderLayout.SOUTH);
 	}
 
 	private void loadPanelMessage(ActionListener listener) {
 		JPanel panelMessage = new JPanel(new GridLayout(1, 2));
-		labelMessage = new JLabel();
-		labelMessage.setFont(ConstantList.AGENCY_FB);
-		panelMessage.add(labelMessage);
+		fieldMessage = new JTextField();
+		fieldMessage.setFont(ConstantList.AGENCY_FB);
+		panelMessage.add(fieldMessage);
 		panelMessage.add(UtilityList.createJButtonText(Command.COMMAND_MESSAGE.getCommand(),
 				Command.COMMAND_MESSAGE.getTitle(), Color.BLACK, Color.WHITE, ConstantList.AGENCY_FB, listener));
 		add(panelMessage, BorderLayout.NORTH);
+	}
+	
+	public void setNotifyNum(int num) {
+		buttonNotify.setNotifyNum(num);
 	}
 	
 	public void loadMessages(ArrayList<String> messages) {
@@ -55,6 +62,6 @@ public class FrameHome extends JFrame {
 	}
 
 	public String getMessage() {
-		return labelMessage.getText();
+		return fieldMessage.getText();
 	}
 }
