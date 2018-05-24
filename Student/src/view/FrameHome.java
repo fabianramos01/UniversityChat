@@ -35,7 +35,6 @@ public class FrameHome extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setVisible(true);
 	}
 
 	private void init() {
@@ -72,6 +71,18 @@ public class FrameHome extends JFrame {
 		panelNotifies.loadMessages(messages);
 		add(panelNotifies, BorderLayout.EAST);
 		SwingUtilities.updateComponentTreeUI(this);
+	}
+	
+	public void withoutConn() {
+		fieldMessage.setText(ConstantList.OUT_CONN);
+		fieldMessage.setForeground(Color.RED);
+		fieldMessage.setEditable(false);
+	}
+	
+	public void whitConn() {
+		fieldMessage.setText("");
+		fieldMessage.setForeground(Color.BLACK);
+		fieldMessage.setEditable(true);
 	}
 	
 	public void removePanelNotify() {

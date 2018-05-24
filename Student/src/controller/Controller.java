@@ -17,8 +17,9 @@ public class Controller implements ActionListener {
 	private Timer timer;
 
 	public Controller() {
-		connect();
 		frameHome = new FrameHome(this);
+		connect();
+		
 		startTimer();
 	}
 
@@ -27,19 +28,36 @@ public class Controller implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frameHome.setNotifyNum(student.notifications());
+				if (student != null) {
+					frameHome.setNotifyNum(student.notifications());					
+				}
 			}
 		});
 		timer.start();
 	}
 
 	private void connect() {
-		String ip = JOptionPane.showInputDialog("Ingrese la IP del servidor");
+		frameHome.setVisible(false);
+		String ip = JOptionPane.showInputDialog(ConstantList.GET_IP);
+		String port = JOptionPane.showInputDialog(ConstantList.GET_PORT);
+		if (!port.equals("")) {
+			newStudent(ip, Integer.parseInt(port));
+		} else {
+			frameHome.withoutConn();
+			JOptionPane.showMessageDialog(null, ConstantList.PORT_ERROR, ConstantList.ERROR,
+					JOptionPane.ERROR_MESSAGE);			
+		}	
+		frameHome.setVisible(true);
+	}
+	
+	private void newStudent(String ip, int port) {
 		try {
-			student = new Student(ip);
+			student = new Student(ip, port);
+			frameHome.whitConn();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, ConstantList.CONNECTION_ERROR, ConstantList.ERROR,
 					JOptionPane.ERROR_MESSAGE);
+			frameHome.withoutConn();
 		}
 	}
 

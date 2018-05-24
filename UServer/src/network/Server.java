@@ -15,9 +15,9 @@ public class Server extends MyThread implements IObserver{
 	private ArrayList<Connection> connections;
 	private Socket socket;
 
-	public Server() throws IOException {
+	public Server(int port) throws IOException {
 		super(SERVER, SLEEP);
-		serverSocket = new ServerSocket(2000);
+		serverSocket = new ServerSocket(port);
 		connections = new ArrayList<>();
 		System.out.println("Server create at port 2000");
 		start();

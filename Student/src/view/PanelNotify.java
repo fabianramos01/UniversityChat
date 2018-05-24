@@ -32,7 +32,7 @@ public class PanelNotify extends JPanel {
 
 	private void addButtonClose(ActionListener listener) {
 		JPanel panelButton = new JPanel(new BorderLayout());
-		panelButton.setBackground(Color.GRAY);
+		panelButton.setBackground(Color.BLACK);
 		panelButton.add(
 				UtilityList.createJButton(Command.COMMAND_CLOSE_NOTIFY.getCommand(),
 						Command.COMMAND_CLOSE_NOTIFY.getTitle(), Command.COMMAND_CLOSE_NOTIFY.getImg(), listener),

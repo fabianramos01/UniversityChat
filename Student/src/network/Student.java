@@ -18,12 +18,12 @@ public class Student extends MyThread {
 	private ArrayList<Notify> notifications;
 	private ArrayList<String> messages;
 
-	public Student(String ip) throws IOException {
+	public Student(String ip, int port) throws IOException {
 		super("", ConstantList.SLEEP);
 		notifications = new ArrayList<>();
 		messages = new ArrayList<>();
 		System.out.println("Conexion iniciada");
-		socket = new Socket(ip, 2000);
+		socket = new Socket(ip, port);
 		output = new DataOutputStream(socket.getOutputStream());
 		input = new DataInputStream(socket.getInputStream());
 		start();
