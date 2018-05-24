@@ -25,7 +25,7 @@ public class Connection extends MyThread implements IObservable {
 			input = new DataInputStream(this.socket.getInputStream());
 			output = new DataOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getLocalizedMessage());
 		}
 		start();
 	}

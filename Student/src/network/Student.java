@@ -72,6 +72,7 @@ public class Student extends MyThread {
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+			stop();
 		}
 	}
 
