@@ -25,7 +25,7 @@ public class Connection extends MyThread implements IObservable {
 			input = new DataInputStream(this.socket.getInputStream());
 			output = new DataOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
-			System.out.println(e.getLocalizedMessage());
+			System.err.println(e.getLocalizedMessage());
 		}
 		start();
 	}
@@ -35,7 +35,7 @@ public class Connection extends MyThread implements IObservable {
 			output.writeUTF(Request.SEND_MESSAGE.toString());
 			output.writeUTF(message);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class Connection extends MyThread implements IObservable {
 				managerRequest(request);
 			}
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			stop();
 		}
 	}

@@ -32,7 +32,7 @@ public class Server extends MyThread implements IObserver{
 			connection.addObserver(this);
 			connections.add(connection);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 	}
 
