@@ -22,7 +22,6 @@ public class Student extends MyThread {
 		super("", ConstantList.SLEEP);
 		notifications = new ArrayList<>();
 		messages = new ArrayList<>();
-		System.out.println("Conexion iniciada");
 		socket = new Socket(ip, port);
 		output = new DataOutputStream(socket.getOutputStream());
 		input = new DataInputStream(socket.getInputStream());

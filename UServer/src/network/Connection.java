@@ -5,12 +5,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import model.MyThread;
 
 public class Connection extends MyThread implements IObservable {
 
 	private static int count = 0;
+	private String inetAddress;
 	private ArrayList<IObserver> observers;
 	private DataInputStream input;
 	private DataOutputStream output;
@@ -18,14 +20,14 @@ public class Connection extends MyThread implements IObservable {
 
 	public Connection(Socket socket) {
 		super(String.valueOf(count++), 1000);
-		System.out.println(count);
+		inetAddress = socket.getInetAddress().getHostAddress();
 		this.socket = socket;
 		observers = new ArrayList<>();
 		try {
 			input = new DataInputStream(this.socket.getInputStream());
 			output = new DataOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
-			System.err.println(e.getLocalizedMessage());
+			ConstantList.LOGGER.log(Level.WARNING, e.getMessage());
 		}
 		start();
 	}
@@ -65,6 +67,10 @@ public class Connection extends MyThread implements IObservable {
 		for (IObserver iObserver : observers) {
 			iObserver.update(getText(), message);
 		}
+	}
+	
+	public String getInetAddress() {
+		return inetAddress;
 	}
 
 	@Override
